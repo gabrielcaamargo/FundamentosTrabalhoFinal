@@ -104,7 +104,9 @@ public class Equipamento {
     }
 
     public void retirarEquipamento() {
-        this.status = EquipamentoStatusEnum.EMPRESTADO;
+        if(this.status == EquipamentoStatusEnum.DISPONIVEL) {
+            this.status = EquipamentoStatusEnum.EMPRESTADO;
+        }
     }
 
     public void devolverEquipamento() {
