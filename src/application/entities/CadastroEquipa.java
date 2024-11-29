@@ -29,7 +29,13 @@ public class CadastroEquipa {
         this.contador = contador;
     }
 
-    public boolean adicionaEquipa(Equipamento equipamento) {
+    @Override
+    public String toString() {
+        return "Equipamentos cadastrados: " +
+                "equipamentos: " + Arrays.toString(equipamentos);
+    }
+
+        public boolean adicionaEquipa(Equipamento equipamento) {
         if(contador <= 10) {
             equipamentos[contador] = equipamento;
             return true;
