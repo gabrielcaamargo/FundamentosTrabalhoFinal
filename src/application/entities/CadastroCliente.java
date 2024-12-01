@@ -24,7 +24,7 @@ public class CadastroCliente {
     }
 
     public Cliente buscaClientePeloNome(String nome) {
-        for (int i = 0; i < quantidadeAtual; i++) {
+        for (int i = 0; i < clientes.length; i++) {
             if (clientes[i].getNomeCliente().equalsIgnoreCase(nome)) {
                 return clientes[i];
             }

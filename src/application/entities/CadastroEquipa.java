@@ -59,7 +59,7 @@ public class CadastroEquipa {
     }
 
     public Equipamento buscaEquipaPeloNome(String nome) {
-        for(int i = 0; i < contador; i++) {
+        for(int i = 0; i < equipamentos.length; i++) {
             if(equipamentos[i].getNome().equals(nome)) {
                 return equipamentos[i];
             }

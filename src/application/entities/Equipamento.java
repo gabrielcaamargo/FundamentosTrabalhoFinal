@@ -18,6 +18,7 @@ public class Equipamento {
         if(quantidadeHorasEmprestimo > 0) this.quantidadeHorasEmprestimo = quantidadeHorasEmprestimo;
         this.seguro = seguro;
         if(valorEmprestimo > 0)  this.valorEmprestimo = valorEmprestimo;
+        this.status = EquipamentoStatusEnum.DISPONIVEL;
     }
 
     public Equipamento() {}
@@ -120,6 +121,9 @@ public class Equipamento {
                 ", nome: '" + nome + '\'' +
                 ", tipo: '" + tipo + '\'' +
                 ", Quantidade de horas de empréstimo: " + quantidadeHorasEmprestimo +
+                ", Seguro: " + seguro +
+                ", Valor do empréstimo: " + valorEmprestimo +
+                ", Status: " + status +
                 '}';
     }
 }
