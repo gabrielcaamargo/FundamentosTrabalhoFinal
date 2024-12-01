@@ -1,33 +1,44 @@
 package application.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CadastroCliente {
 
     private Cliente[] clientes;
-    private int tamanho;
+    private int quantidadeAtual;
 
     public CadastroCliente() {
-        clientes = new Cliente[10];
-        tamanho = 0;
+        this.clientes = new Cliente[10];
+        this.quantidadeAtual = 0;
     }
 
     public boolean adicionaCliente(Cliente cliente) {
-        if (tamaho < 10) {
-            clientes[tamanho] = cliente;
-            tamanho++;
+        if (quantidadeAtual < clientes.length) {
+            clientes[quantidadeAtual] = cliente;
+            quantidadeAtual++;
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
 
     public Cliente buscaClientePeloNome(String nome) {
-        for(int i = 0; i < tamanho; i++) {
-            if(cliente[i].getNome().equals(nome)); {
+        for (int i = 0; i < quantidadeAtual; i++) {
+            if (clientes[i].getNomeCliente().equalsIgnoreCase(nome)) {
                 return clientes[i];
             }
-
         }
         return null;
+    }
+
+    public void mostraClientes() {
+        if (quantidadeAtual == 0) {
+            System.out.println("Nenhum cliente cadastrado.");
+        } else {
+            for (int i = 0; i < quantidadeAtual; i++) {
+                System.out.println(clientes[i]);
+            }
+        }
     }
 }
