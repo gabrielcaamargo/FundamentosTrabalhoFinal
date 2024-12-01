@@ -1,8 +1,9 @@
 package application.entities;
-public class Cliente {
 
+public class Cliente {
     private int matricula;
-    private String nomeCliente, empresa;
+    private String nomeCliente;
+    private String empresa;
     private Equipamento dadosEquipamentosRetirados;
 
     public Cliente(int matricula, String nomeCliente, String empresa, Equipamento dadosEquipamentosRetirados) {
@@ -44,13 +45,13 @@ public class Cliente {
         this.dadosEquipamentosRetirados = dadosEquipamentosRetirados;
     }
 
-    @java.lang.Override
-    public java.lang.String toString() {
-        return "Cliente{" +
-                "matricula=" + matricula +
-                ", nomeCliente='" + nomeCliente + '\'' +
-                ", empresa='" + empresa + '\'' +
-                ", dadosEquipamentosRetirados=" + dadosEquipamentosRetirados +
+    @Override
+    public String toString() {
+        return "Cliente {" +
+                "matricula: " + matricula +
+                ", Nome Cliente: '" + nomeCliente + '\'' +
+                ", Empresa: '" + empresa + '\'' +
+                ", Dados Equipamentos Retirados: " + (dadosEquipamentosRetirados != null ? dadosEquipamentosRetirados.toString() : "Nenhum equipamento") +
                 '}';
     }
 }
