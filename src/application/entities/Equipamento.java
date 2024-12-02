@@ -12,13 +12,16 @@ public class Equipamento {
     private EquipamentoStatusEnum status;
 
     public Equipamento(int id, String nome, String tipo, int quantidadeHorasEmprestimo, boolean seguro, double valorEmprestimo) {
-        if(id>0) this.id = id;
-        if(nome != null) this.nome = nome;
-        if(tipo != null) this.tipo = tipo;
-        if(quantidadeHorasEmprestimo > 0) this.quantidadeHorasEmprestimo = quantidadeHorasEmprestimo;
+        if (id > 0) this.id = id;
+        if (nome != null) this.nome = nome;
+        if (tipo != null) this.tipo = tipo;
+        if (quantidadeHorasEmprestimo >= 3) this.quantidadeHorasEmprestimo = quantidadeHorasEmprestimo;
         this.seguro = seguro;
-        if(valorEmprestimo > 0)  this.valorEmprestimo = valorEmprestimo;
+        if (valorEmprestimo > 0) this.valorEmprestimo = valorEmprestimo;
         this.status = EquipamentoStatusEnum.DISPONIVEL;
+
+        this.valorEmprestimo = calculaDescontoValorHoras(valorEmprestimo, quantidadeHorasEmprestimo);
+        this.valorEmprestimo = calculaDescontoValorSeguro(this.valorEmprestimo, seguro);
     }
 
     public Equipamento() {}
@@ -68,10 +71,7 @@ public class Equipamento {
     }
 
     public void setValorEmprestimo(double valorEmprestimo) {
-        double valorDescontadoHoras = this.calculaDescontoValorHoras(valorEmprestimo, this.quantidadeHorasEmprestimo);
-        double valorDescontadoSeguro = this.calculaDescontoValorSeguro(valorDescontadoHoras, this.seguro);
-
-        this.valorEmprestimo = valorDescontadoSeguro;
+        this.valorEmprestimo = valorEmprestimo;
     }
 
     public EquipamentoStatusEnum getStatus() {
@@ -83,29 +83,24 @@ public class Equipamento {
     }
 
     public double calculaDescontoValorSeguro(double valor, boolean seguro) {
-        if(seguro) return valor / 100 * 0.02;
+        if (seguro) {
+            return valor + (valor * 0.02);
+        }
         return valor;
     }
 
     public double calculaDescontoValorHoras(double valor, int quantidadeHoras) {
         double desconto = 0;
-
-        if(quantidadeHoras < 24) {
-            return valor;
+        if (quantidadeHoras >= 36) {
+            desconto = 0.10;
+        } else if (quantidadeHoras >= 24) {
+            desconto = 0.05;
         }
-
-        if(quantidadeHoras >= 24 && quantidadeHoras <= 36) {
-            desconto =  valor / 100 * 0.05;
-
-            return valor - desconto;
-        }
-
-        desconto = valor / 100 * 0.1;
-        return valor - desconto;
+        return valor - (valor * desconto);
     }
 
     public void retirarEquipamento() {
-        if(this.status == EquipamentoStatusEnum.DISPONIVEL) {
+        if (this.status == EquipamentoStatusEnum.DISPONIVEL) {
             this.status = EquipamentoStatusEnum.EMPRESTADO;
         }
     }
@@ -123,7 +118,6 @@ public class Equipamento {
         return 0.0;
     }
 
-
     @Override
     public String toString() {
         return "Equipamento: " +
@@ -137,3 +131,4 @@ public class Equipamento {
                 '}';
     }
 }
+

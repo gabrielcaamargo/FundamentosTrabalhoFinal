@@ -1,8 +1,5 @@
 package application.entities;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CadastroCliente {
 
     private Cliente[] clientes;
@@ -18,13 +15,12 @@ public class CadastroCliente {
             clientes[quantidadeAtual] = cliente;
             quantidadeAtual++;
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public Cliente buscaClientePeloNome(String nome) {
-        for (int i = 0; i < clientes.length; i++) {
+        for (int i = 0; i < quantidadeAtual; i++) {
             if (clientes[i].getNomeCliente().equalsIgnoreCase(nome)) {
                 return clientes[i];
             }

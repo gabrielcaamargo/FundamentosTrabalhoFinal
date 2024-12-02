@@ -9,8 +9,7 @@ public class Emprestimo {
     private static CadastroCliente cadastroClientes = new CadastroCliente();
     private static Equipamento[] equipamentos = new Equipamento[10];
     private static int quantidadeEquipamentos = 0;
-    private static CadastroEquipa cadastroEquipa = new CadastroEquipa(equipamentos, quantidadeEquipamentos);
-
+    private static CadastroEquipa cadastroEquipa = new CadastroEquipa(equipamentos);
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int opcao;
@@ -30,7 +29,7 @@ public class Emprestimo {
             System.out.println("11 - Sair");
             System.out.print("Escolha uma opção: ");
             opcao = scanner.nextInt();
-            scanner.nextLine();  // Limpar o buffer após nextInt()
+            scanner.nextLine();
 
             switch (opcao) {
                 case 1:
@@ -40,7 +39,7 @@ public class Emprestimo {
 
                     System.out.println("Digite a matrícula do cliente: ");
                     matricula = scanner.nextInt();
-                    scanner.nextLine(); // Limpar o buffer
+                    scanner.nextLine();
 
                     System.out.println("Digite o nome do cliente: ");
                     nomeCliente = scanner.nextLine();
@@ -78,7 +77,7 @@ public class Emprestimo {
 
                     System.out.println("Digite o ID do equipamento: ");
                     id = scanner.nextInt();
-                    scanner.nextLine(); // Limpar o buffer
+                    scanner.nextLine();
 
                     System.out.println("Digite o nome do equipamento:");
                     String nomeEquipamento = scanner.nextLine();
@@ -167,7 +166,6 @@ public class Emprestimo {
                     break;
 
                 case 10:
-                    // Renovação de equipamento
                     System.out.println("Digite o nome do equipamento que deseja renovar:");
                     nomeEquipamento = scanner.nextLine();
 
@@ -175,9 +173,8 @@ public class Emprestimo {
                     if (equipamentoParaRenovar != null) {
                         System.out.println("Digite a quantidade de horas adicionais para renovação:");
                         int horasAdicionais = scanner.nextInt();
-                        scanner.nextLine(); // Consumir o \n que sobra após nextInt()
+                        scanner.nextLine();
 
-                        // Realizar a renovação e calcular o valor adicional
                         double valorAdicional = equipamentoParaRenovar.renovarHoras(horasAdicionais);
                         if (valorAdicional > 0) {
                             System.out.printf("Horas renovadas com sucesso! Valor adicional a pagar: R$ %.2f\n", valorAdicional);
