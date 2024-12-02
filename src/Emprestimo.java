@@ -26,105 +26,178 @@ public class Emprestimo {
             System.out.println("7 - Retirar Equipamento");
             System.out.println("8 - Devolver Equipamento");
             System.out.println("9 - Quantidade Total de Equipamentos Disponíveis");
+            System.out.println("10 - Renovar Equipamento");
+            System.out.println("11 - Sair");
             System.out.print("Escolha uma opção: ");
             opcao = scanner.nextInt();
-            scanner.nextLine();
+            scanner.nextLine();  // Limpar o buffer após nextInt()
 
-                switch (opcao) {
-                    case 1:
-                        int matricula;
-                        String nomeCliente;
-                        String empresa;
+            switch (opcao) {
+                case 1:
+                    int matricula;
+                    String nomeCliente;
+                    String empresa;
 
-                        matricula = scanner.nextInt();
-                        scanner.nextLine();
+                    System.out.println("Digite a matrícula do cliente: ");
+                    matricula = scanner.nextInt();
+                    scanner.nextLine(); // Limpar o buffer
 
-                        System.out.println("Digite o nome do cliente: ");
+                    System.out.println("Digite o nome do cliente: ");
+                    nomeCliente = scanner.nextLine();
 
-                        System.out.println("Digite o nome da empresa: ");
+                    System.out.println("Digite o nome da empresa: ");
+                    empresa = scanner.nextLine();
 
-                        cadastroClientes.adicionaCliente(cliente);
-                        System.out.println("Cliente cadastrado com sucesso.");
-                        break;
-                    case 2:
-                        cadastroClientes.mostraClientes();
-                        break;
-                    case 3:
-                        System.out.println("Digite o nome do cliente: ");
-                        Cliente clienteEncontrado = cadastroClientes.buscaClientePeloNome(nome);
+                    Cliente cliente = new Cliente(matricula, nomeCliente, empresa, null);
+                    cadastroClientes.adicionaCliente(cliente);
+                    System.out.println("Cliente cadastrado com sucesso.");
+                    break;
 
-                        if (clienteEncontrado != null) {
-                            System.out.println(clienteEncontrado.toString());
+                case 2:
+                    cadastroClientes.mostraClientes();
+                    break;
+
+                case 3:
+                    System.out.println("Digite o nome do cliente: ");
+                    String nome = scanner.nextLine();
+                    Cliente clienteEncontrado = cadastroClientes.buscaClientePeloNome(nome);
+
+                    if (clienteEncontrado != null) {
+                        System.out.println(clienteEncontrado.toString());
+                    } else {
+                        System.out.println("Cliente não encontrado.");
+                    }
+                    break;
+
+                case 4:
+                    int id;
+                    String tipo;
+                    int quantidadeHorasEmprestimo;
+                    boolean seguro;
+                    double valorEmprestimo;
+
+                    System.out.println("Digite o ID do equipamento: ");
+                    id = scanner.nextInt();
+                    scanner.nextLine(); // Limpar o buffer
+
+                    System.out.println("Digite o nome do equipamento:");
+                    String nomeEquipamento = scanner.nextLine();
+
+                    System.out.println("Digite o tipo do equipamento: ");
+                    tipo = scanner.nextLine();
+
+                    System.out.println("Digite a quantidade de horas de empréstimo: ");
+                    quantidadeHorasEmprestimo = scanner.nextInt();
+
+                    System.out.println("Digite se o equipamento possui seguro (true/false): ");
+                    seguro = scanner.nextBoolean();
+
+                    System.out.println("Digite o valor do empréstimo: ");
+                    valorEmprestimo = scanner.nextDouble();
+
+                    Equipamento equipamento = new Equipamento(id, nomeEquipamento, tipo, quantidadeHorasEmprestimo, seguro, valorEmprestimo);
+                    cadastroEquipa.adicionaEquipa(equipamento);
+                    System.out.println("Equipamento cadastrado com sucesso.");
+                    break;
+
+                case 5:
+                    for (int i = 0; i < equipamentos.length; i++) {
+                        if (equipamentos[i] != null) {
+                            System.out.println(equipamentos[i].toString());
+                        }
+                    }
+                    break;
+
+                case 6:
+                    System.out.println("Digite o nome do equipamento: ");
+                    nomeEquipamento = scanner.nextLine();
+
+                    Equipamento equipamentoEncontrado = cadastroEquipa.buscaEquipaPeloNome(nomeEquipamento);
+                    if (equipamentoEncontrado != null) {
+                        System.out.println(equipamentoEncontrado.toString());
+                    } else {
+                        System.out.println("Equipamento não encontrado.");
+                    }
+                    break;
+
+                case 7:
+                    System.out.println("Digite o nome do equipamento: ");
+                    nomeEquipamento = scanner.nextLine();
+
+                    System.out.println("Digite o nome do cliente: ");
+                    nomeCliente = scanner.nextLine();
+
+                    Equipamento equipamentoRetirado = cadastroEquipa.buscaEquipaPeloNome(nomeEquipamento);
+                    Cliente clienteRetirado = cadastroClientes.buscaClientePeloNome(nomeCliente);
+
+                    if (clienteRetirado == null) {
+                        System.out.println("Cliente não encontrado.");
+                    } else if (equipamentoRetirado != null) {
+                        equipamentoRetirado.retirarEquipamento();
+                        clienteRetirado.setDadosEquipamentosRetirados(equipamentoRetirado);
+                        System.out.println("Equipamento retirado com sucesso.");
+                    } else {
+                        System.out.println("Equipamento não encontrado.");
+                    }
+                    break;
+
+                case 8:
+                    System.out.println("Digite o nome do equipamento: ");
+                    nomeEquipamento = scanner.nextLine();
+
+                    System.out.println("Digite o nome do cliente: ");
+                    nomeCliente = scanner.nextLine();
+
+                    Equipamento equipamentoDevolvido = cadastroEquipa.buscaEquipaPeloNome(nomeEquipamento);
+                    Cliente clienteDevolucao = cadastroClientes.buscaClientePeloNome(nomeCliente);
+
+                    if (clienteDevolucao == null) {
+                        System.out.println("Cliente não encontrado.");
+                    } else if (equipamentoDevolvido != null) {
+                        equipamentoDevolvido.devolverEquipamento();
+                        clienteDevolucao.setDadosEquipamentosRetirados(null);
+                        System.out.println("Equipamento devolvido com sucesso.");
+                    } else {
+                        System.out.println("Equipamento não encontrado.");
+                    }
+                    break;
+
+                case 9:
+                    System.out.println("Quantidade de Equipamentos Disponíveis: " + (10 - quantidadeEquipamentos));
+                    break;
+
+                case 10:
+                    // Renovação de equipamento
+                    System.out.println("Digite o nome do equipamento que deseja renovar:");
+                    nomeEquipamento = scanner.nextLine();
+
+                    Equipamento equipamentoParaRenovar = cadastroEquipa.buscaEquipaPeloNome(nomeEquipamento);
+                    if (equipamentoParaRenovar != null) {
+                        System.out.println("Digite a quantidade de horas adicionais para renovação:");
+                        int horasAdicionais = scanner.nextInt();
+                        scanner.nextLine(); // Consumir o \n que sobra após nextInt()
+
+                        // Realizar a renovação e calcular o valor adicional
+                        double valorAdicional = equipamentoParaRenovar.renovarHoras(horasAdicionais);
+                        if (valorAdicional > 0) {
+                            System.out.printf("Horas renovadas com sucesso! Valor adicional a pagar: R$ %.2f\n", valorAdicional);
                         } else {
-                            System.out.println("Cliente não encontrado.");
+                            System.out.println("Erro na renovação. Verifique a quantidade de horas.");
                         }
-                        break;
-                    case 4:
-                        int id;
-                        String tipo;
-                        int quantidadeHorasEmprestimo;
-                        boolean seguro;
-                        double valorEmprestimo;
+                    } else {
+                        System.out.println("Equipamento não encontrado.");
+                    }
+                    break;
 
-                        System.out.println("Digite o ID do equipamento: ");
-                        id = scanner.nextInt();
-                        System.out.println("Digite o nome do equipamento:");
+                case 11:
+                    System.out.println("Saindo do programa...");
+                    break;
 
-                        System.out.println("Digite o tipo do equipamento: ");
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+            }
+        } while (opcao != 11);
 
-                        System.out.println("Digite a quantidade de horas de empréstimo: ");
-                        quantidadeHorasEmprestimo = scanner.nextInt();
-
-                        System.out.println("Digite se o equipamento possui seguro (true/false): ");
-                        seguro = scanner.nextBoolean();
-
-                        System.out.println("Digite o valor do empréstimo: ");
-                        valorEmprestimo = scanner.nextDouble();
-
-                            System.out.println("Equipamento cadastrado com sucesso.");
-                        break;
-                    case 5:
-                        for (int i = 0; i < equipamentos.length; i++) {
-                            if (equipamentos[i] != null) {
-                                System.out.println(equipamentos[i].toString());
-                            }
-                        }
-                        break;
-                    case 6:
-                        System.out.println("Digite o nome do equipamento: ");
-
-                        if (equipamentoEncontrado != null) {
-                            System.out.println(equipamentoEncontrado.toString());
-                        } else {
-                            System.out.println("Equipamento não encontrado.");
-                        }
-                        break;
-                    case 7:
-                        System.out.println("Digite o nome do equipamento: ");
-
-                        System.out.println("Digite o nome do cliente: ");
-
-
-                                System.out.println("Equipamento retirado com sucesso.");
-                            } else {
-                            }
-                        break;
-                    case 8:
-                        System.out.println("Digite o nome do equipamento: ");
-
-                        System.out.println("Digite o nome do cliente: ");
-
-
-                                System.out.println("Equipamento devolvido com sucesso.");
-                            } else {
-                        }
-                        break;
-                    case 9:
-                        System.out.println("Quantidade de Equipamentos Disponíveis: " + (10 - quantidadeEquipamentos));
-                        break;
-                    case 10:
-                        System.out.println("Saindo do programa...");
-                        break;
-                    default:
-                        System.out.println("Opção inválida. Tente novamente.");
-                }
+        scanner.close();
+    }
+}
