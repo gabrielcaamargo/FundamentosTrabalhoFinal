@@ -17,7 +17,9 @@ public class CadastroEquipa {
         return equipamentos;
     }
 
-    public void setEquipamentos(Equipamento[] equipamentos) {this.equipamentos = equipamentos;}
+    public void setEquipamentos(Equipamento[] equipamentos) {
+        this.equipamentos = equipamentos;
+    }
 
     public int getContador() {
         return contador;
@@ -57,14 +59,14 @@ public class CadastroEquipa {
     }
 
     public Equipamento buscaEquipaPeloNome(String nome) {
-        for (int i = 0; i < equipamentos.length; i++) {
-            if (equipamentos[i] != null && equipamentos[i].getNome().equalsIgnoreCase(nome)) {
+        for(int i = 0; i < contador; i++) {
+            if(equipamentos[i].getNome().equals(nome)) {
                 return equipamentos[i];
             }
         }
+
         return null;
     }
-
 
     public int totalEquipamentos() {
         int soma = 0;
