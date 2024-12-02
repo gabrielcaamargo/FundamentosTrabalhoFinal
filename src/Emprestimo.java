@@ -40,7 +40,7 @@ public class Emprestimo {
                         String nomeCliente;
                         String empresa;
 
-                        System.out.println("Digite a matrícula do cliente: ");
+                        System.out.print("Digite a matrícula do cliente: ");
                         matricula = scanner.nextInt();
                         scanner.nextLine();
 
